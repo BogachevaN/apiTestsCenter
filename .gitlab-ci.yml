@@ -1,0 +1,18 @@
+include:
+  - project: center/infra/gitlab-ci
+    file: kotlin-service.yml
+
+.test_api_base:
+  extends: .on_src
+  stage: test_api
+  allow_failure: true
+  variables:
+    URL_PRODUCTS: "http://center-products-$CI_COMMIT_REF_SLUG.front.ftc.ru"
+  script:
+    - mvn $MAVEN_CLI_OPTS test -Dgroups=api
+
+test_api_master:
+  extends: .test_api_base
+  only:
+    refs:
+      - master
