@@ -1,4 +1,4 @@
-package ru.cft.center.products.apitests.dto
+package ru.cft.center.products.apitests.dto.group
 
 class CreateSettingGroupRequest(
     val productId: String?,

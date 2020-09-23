@@ -1,11 +1,10 @@
 package ru.cft.center.products.apitests.restapi
 
 import io.restassured.RestAssured.given
-import io.restassured.response.Response
 import io.restassured.specification.RequestSpecification
 import io.restassured.http.ContentType.JSON
 import ru.cft.center.products.apitests.helpers.EndPoints
-import ru.cft.center.products.apitests.dto.CreateSettingGroupRequest
+import ru.cft.center.products.apitests.dto.group.CreateSettingGroupRequest
 
 object RestApiSettingGroup {
     fun createSettingGroup(spec: RequestSpecification, body: CreateSettingGroupRequest) =

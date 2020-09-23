@@ -5,8 +5,7 @@ import io.restassured.http.ContentType
 import io.restassured.response.Response
 import io.restassured.specification.RequestSpecification
 import ru.cft.center.products.apitests.helpers.EndPoints
-import ru.cft.center.products.apitests.dto.ChangeSettingValueRequest
-import ru.cft.center.products.apitests.dto.CreateSettingRequest
+import ru.cft.center.products.apitests.dto.settings.*
 
 object RestApiSetting {
     fun createSetting(spec: RequestSpecification, body: CreateSettingRequest) =
@@ -16,12 +15,13 @@ object RestApiSetting {
             .body(body)
             .post(EndPoints.CREATE_SETTING)!!
 
-    fun readSetting(spec: RequestSpecification, productId: Any?): Response {
+    fun readSetting(spec: RequestSpecification, productId: Any?, tenantId: Any?): Response {
         return if (productId != null) {
             given()
                 .spec(spec)
                 .contentType(ContentType.JSON)
                 .param("productId", productId)
+                .param("tenantId", tenantId)
                 .get(EndPoints.READ_SETTING)!!
         } else {
             given()
@@ -52,4 +52,11 @@ object RestApiSetting {
             .contentType(ContentType.JSON)
             .body(body)
             .put(EndPoints.CHANGE_SETTING, settingId)!!
+
+    fun importSetting(spec: RequestSpecification, body: ImportSettingsRequest) =
+        given()
+            .spec(spec)
+            .contentType(ContentType.JSON)
+            .body(body)
+            .post(EndPoints.IMPORT_SETTINGS_TO_PRODUCT)!!
 }

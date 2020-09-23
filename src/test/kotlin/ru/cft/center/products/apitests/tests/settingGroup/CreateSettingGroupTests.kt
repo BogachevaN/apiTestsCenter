@@ -2,20 +2,21 @@ package ru.cft.center.products.apitests.tests.settingGroup
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
-import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.*
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.DynamicTest.dynamicTest
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.TestFactory
 import ru.cft.center.products.apitests.TestBase
-import ru.cft.center.products.apitests.dto.CreateSettingGroupRequest
+import ru.cft.center.products.apitests.dto.group.CreateSettingGroupRequest
 import ru.cft.center.products.apitests.restapi.RestApiSettingGroup
 
 @Tag("api")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class CreateSettingGroupTests : TestBase() {
-    lateinit var mainGroupId: Any
+    private lateinit var mainGroupId: Any
 
-    @BeforeEach
+    @BeforeAll
     fun createMainGroup() {
         mainGroupId = RestApiSettingGroup
             .createSettingGroup(SPEC, CreateSettingGroupRequest("apitest",

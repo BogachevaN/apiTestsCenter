@@ -1,23 +1,20 @@
 package ru.cft.center.products.apitests.tests.setting
 
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNotNull
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.DynamicTest
-import org.junit.jupiter.api.Tag
-import org.junit.jupiter.api.TestFactory
+import org.junit.jupiter.api.*
+import org.junit.jupiter.api.Assertions.*
 import ru.cft.center.products.apitests.TestBase
-import ru.cft.center.products.apitests.dto.CreateSettingGroupRequest
-import ru.cft.center.products.apitests.dto.CreateSettingRequest
-import ru.cft.center.products.apitests.dto.SettingOption
+import ru.cft.center.products.apitests.dto.group.CreateSettingGroupRequest
+import ru.cft.center.products.apitests.dto.settings.CreateSettingRequest
+import ru.cft.center.products.apitests.dto.settings.SettingOption
 import ru.cft.center.products.apitests.restapi.RestApiSetting
 import ru.cft.center.products.apitests.restapi.RestApiSettingGroup
 
 @Tag("api")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class CreateSettingTests : TestBase() {
-    lateinit var groupId: Any
+    private lateinit var groupId: Any
 
-    @BeforeEach
+    @BeforeAll
     fun createGroup() {
         groupId = RestApiSettingGroup
             .createSettingGroup(SPEC, CreateSettingGroupRequest("apitest", "firstGroupOfFirstLevel",
@@ -26,7 +23,7 @@ class CreateSettingTests : TestBase() {
     }
 
     @TestFactory
-    fun createSetingWithCorrectDataMustReturn200(): List<DynamicTest> {
+    fun createSettingWithCorrectDataMustReturn200(): List<DynamicTest> {
         val settingGroups = listOf(
             RestApiSetting.createSetting(SPEC, CreateSettingRequest("apitest", "enum",
                 "testapi_Environment", "Окружение", "Test", null,

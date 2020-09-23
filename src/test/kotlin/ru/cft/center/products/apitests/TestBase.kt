@@ -3,6 +3,7 @@ package ru.cft.center.products.apitests
 import io.restassured.builder.RequestSpecBuilder
 import io.restassured.filter.log.LogDetail
 import io.restassured.specification.RequestSpecification
+import java.util.*
 
 open class TestBase {
 
@@ -33,5 +34,17 @@ open class TestBase {
         return (1..length)
             .map { allowedChars.random() }
             .joinToString("")
+    }
+
+    fun getRandomNumber(length: Int): String {
+        val allowedChars = "0123456789"
+        return (1..length)
+            .map { allowedChars.random() }
+            .joinToString("")
+    }
+
+    fun getRandomId(): String {
+        val randomId = UUID.randomUUID()
+        return randomId.toString()
     }
 }
